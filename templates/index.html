@@ -15,10 +15,10 @@
 					Paste the URL to be shortened
 				</h2>
 
-				<div class="flex-1 flex justify-center">
+				<form method="post" action="/shorten" class="flex-1 flex justify-center">
 					<input placeholder="Enter URL here" name="url" class="border-y-2 border-l-2 p-4 rounded-l-lg m-0">
-					<button class="p-4 bg-blue-500 rounded-r-lg text-white font-bold">Shorten URL</button>
-				</div>
+					<button type="submit" class="p-4 bg-blue-500 rounded-r-lg text-white font-bold">Shorten URL</button>
+				</form>
 				
 				<p class="flex flex-col justify-center gap-0">
 					<span class="m-0 p-0">ShortURL is a free tool to shorten URLs and generate short links</span>
