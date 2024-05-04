@@ -1,3 +1,14 @@
-<h1>
-{{ .title }}
-</h1>
+<div>
+  <h2 class="font-bold m-4 text-3xl">Here is you shortened url ✅</h2>
+
+  <div class="flex-1 flex justify-center">
+    <input
+      name="url"
+      class="border-y-2 border-l-2 p-4 rounded-l-lg m-0"
+      value={{.url}}
+    />
+    <button class="p-4 bg-blue-500 rounded-r-lg text-white font-bold">
+      Copy URL
+    </button>
+  </div>
+</div>

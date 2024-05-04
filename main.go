@@ -30,6 +30,6 @@ func shortenHandler(c *gin.Context) {
 
 	c.Bind(data)
 	c.HTML(http.StatusOK, "url.html", gin.H{
-		"title": data.Url,
+		"url": data.Url,
 	})
 }
