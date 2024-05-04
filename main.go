@@ -9,23 +9,19 @@ import (
 
 const BaseUrl = "localhost:8080/"
 
-type ShortenedUrl struct {
-	original string
-	url string
-}
-
 type FormData struct {
 	Url string `form:"url"`
 }
+
+var shortenedUrls = map[string]string{}
 
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
 
-
 	router.GET("/", rootHandler)
-
 	router.POST("/shorten", shortenHandler)
+	router.GET("/:code", redirectHandler)
 	router.Run(":8080")
 }
 
@@ -39,12 +35,25 @@ func shortenHandler(c *gin.Context) {
 
 	shortenedUrl := BuildShortenedUrl(data.Url)
 
+	shortenedUrls[shortenedUrl] = data.Url
+
 	c.HTML(http.StatusOK, "url.html", gin.H{
-		"url": shortenedUrl.url,
+		"url": BaseUrl + shortenedUrl,
 	})
 }
 
-func BuildShortenedUrl(url string) ShortenedUrl {
+func redirectHandler(c *gin.Context) {
+	code := c.Param("code")
+
+	url, exists := shortenedUrls[code]
+	if exists {
+		c.Redirect(http.StatusPermanentRedirect, url)
+	} else {
+		c.String(http.StatusNotFound, "Not Found")
+	}
+}
+
+func BuildShortenedUrl(url string) string {
 	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	var result []byte
 
@@ -52,8 +61,5 @@ func BuildShortenedUrl(url string) ShortenedUrl {
 		result = append(result, chars[rand.Intn(len(chars))])
 	}
 
-	return ShortenedUrl{
-		original: url,
-		url: BaseUrl + string(result),
-	}
+	return string(result)
 }

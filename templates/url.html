@@ -3,12 +3,27 @@
 
   <div class="flex-1 flex justify-center">
     <input
+      id="url"
       name="url"
       class="border-y-2 border-l-2 p-4 rounded-l-lg m-0"
-      value={{.url}}
+      value="{{.url}}"
     />
-    <button class="p-4 bg-blue-500 rounded-r-lg text-white font-bold">
+    <button
+      class="p-4 bg-blue-500 rounded-r-lg text-white font-bold"
+      hx-on:click="copyUrl()"
+    >
       Copy URL
     </button>
   </div>
 </div>
+
+<script>
+  function copyUrl() {
+    var url = document.getElementById("url");
+
+    url.select();
+    url.setSelectionRange(0, 999);
+
+    navigator.clipboard.writeText(url.value);
+  }
+</script>
