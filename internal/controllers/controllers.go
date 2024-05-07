@@ -20,7 +20,7 @@ func ShortenHandler(c *gin.Context) {
 	data := &FormData{}
 	c.Bind(data)
 
-	code := shortener.BuildShortenedUrl(data.Url)
+	code := shortener.CreateCode()
 
 	url := models.CreateShortenedUrl(code, data.Url)
 

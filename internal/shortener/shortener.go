@@ -2,7 +2,7 @@ package shortener
 
 import "math/rand"
 
-func BuildShortenedUrl(url string) string {
+func CreateCode() string {
 	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	var result []byte
 
